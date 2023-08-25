@@ -11,9 +11,13 @@ var slideshow = {
         setInterval(()=> this.transition(), 2000)
     },
     transition: function(){
-        $("#info").delay(0).fadeOut(function(){
-            $("#info").text($(".main").data("info"));
-        }).delay(200).fadeIn();
+        if (document.hidden) {
+            $("#info").stop(true, true);
+        } else {
+            $("#info").fadeOut(function() {
+                $("#info").text($(".main").data("info"));
+            }).fadeIn();
+        }
         
         this.elements.removeClass();
 
