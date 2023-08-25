@@ -1,0 +1,164 @@
+:root {
+    --translate-pos: translate(-50%, -50%);
+}
+@keyframes spin {
+    from {
+        transform:rotate(0deg) var(--translate-pos);
+    }
+    to {
+        transform:rotate(360deg) var(--translate-pos);
+    }
+}
+
+html {
+    height: 100%;
+}
+body {
+    height: 100%;
+    margin: 0;
+    &:after {
+        content: "";
+        width: 100%;
+        height: 100%;
+        background-image: radial-gradient(#33259D00 60%, #0C0055 100%);
+    }
+}
+section {
+    height: 100%;
+    background-image: radial-gradient(#33259D, #0C0055); //#3A2B99
+    position: relative;
+    overflow: hidden;
+    .rays {
+        background-image: url("../images/sunrays.png");
+        transform-origin: top left;
+        height: max(120vw, 120vh);
+        width: max(120vw, 120vh);
+        background-size: cover;
+        background-position: center;
+        top: 50%;
+        left: 50%;
+        position: absolute;
+        animation: spin 20s linear infinite;
+    }
+    main {
+        font-family: "Lexend";
+        color: white;
+        
+        div.copy {
+            position: absolute;
+            width: 100%;
+            h1 {
+                text-align: center;
+                font-size: min(4vh, 7vw);
+                margin-top: 6vh;
+            }
+            p {
+                text-align: center;
+                font-size: min(2vh, 4vw);
+            }
+        }
+
+        #info {
+            position: absolute;
+            top: 70%;
+            width: 100%;
+            transform: translateY(-50%);
+            text-align: center;
+        }
+    }
+    .slideshow {
+        height: 100vh;
+        transform: scale(1.3);
+        transform-origin: center;
+    }
+    ul.contents {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        li {
+            width: calc((max(100vh, 100vw) / 5) * 0.7); // (100vw / 5) * 0.7;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: max(30vh, 30vw); //20vw;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            opacity: .5;
+            transition: 1s ease-in-out left, transform 1s ease-in-out, opacity 1s ease-out;
+            &.l2 {
+                transform: translate(-50%, -50%) scale(0.75);
+                left: calc(0% + min(20vh, 10vw));
+                opacity: 0;
+                transition-delay: 0, 0, 500ms;
+                z-index: 1;
+            }
+            &.l1 {
+                left: calc(25% + min(10vh, 5vw));
+                z-index: 2;
+            }
+            &.main {
+                left: 50%;
+                transform: translate(-50%, -50%) scale(2);
+                z-index: 3;
+                opacity: 1;
+            }
+            &.r1 {
+                left: calc(75% - min(10vh, 5vw));
+                z-index: 2;
+            }
+            &.r2 {
+                transform: translate(-50%, -50%) scale(0.75);
+                left: calc(100% - min(20vh, 10vw));
+                opacity: 0;
+                transition-delay: 0, 0, 500ms;
+                z-index: 1;
+            }
+            &#gift1 {
+                background-image: url("../images/gift-apple-10.png");
+            }
+            &#gift2 {
+                background-image: url("../images/gift-fortnite.png");
+            }
+            &#gift3 {
+                background-image: url("../images/gift-roblox.png");
+            }
+            &#gift4 {
+                background-image: url("../images/gift-minecraft.png");
+            }
+            &#gift5 {
+                background-image: url("../images/gift-talkingtom.png");
+            }
+        }
+    }
+}
+
+.mobile {
+    &:after {
+        display: none;
+    }
+    .copy {
+        background-image: linear-gradient(#0C0055 40%, #00000000);
+    }
+    section {
+        ul.contents {
+            li {
+                &.l2 {
+                    left: calc(0% + min(20vh, -10vw));
+                }
+                &.l1 {
+                    left: calc(25% + min(10vh, -5vw));
+                }
+                &.r1 {
+                    left: calc(75% - min(10vh, -5vw));
+                }
+                &.r2 {
+                    left: calc(100% - min(20vh, -10vw));
+                }
+            }
+        }
+    }
+}
