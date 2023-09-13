@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <main>
+        <div id="progressBar">
+            <div class="bar" style="width: 10%;"></div>
+        </div>
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" id="learn">
+                    <div class="top">
+                        <h3>Learn</h3>
+                        <p>
+                            What would you like them to learn?
+                            You can select as many as you like!
+                        </p>
+                    </div>
+                    <ul class="selectors">
+                        <li class="img-lang">
+                            Language
+                        </li>
+                        <li class="img-maths">
+                            Maths
+                        </li>
+                        <li class="img-vocab">
+                            Vocabulary
+                        </li>
+                        <li class="img-gen-kno">
+                            General knowledge
+                        </li>
+                        <li class="img-ai-game">
+                            AI game creation
+                        </li>
+                        <li class="img-mem-skill">
+                            Memory Skills
+                        </li>
+                        <li class="img-nutr">
+                            Nutrition
+                        </li>
+                        <li class="img-type">
+                            Typing
+                        </li>
+                        <div class="spacer"></div>
+                    </ul>
+                    <div class="bottom">
+                        <div class="bg"></div>
+                        <button id="next" data-goto="1">
+                            Next
+                        </button>
+                    </div>
+                </div>
+                <div class="swiper-slide" id="earn">
+                    <div class="top">
+                        <h3>Earn</h3>
+                        <p>
+                            How much time would you like your kid
+                            to spend learning these topics?
+                        </p>
+                    </div>
+                    <ul class="selectors">
+                        <li>
+                            <span>Casual</span><span>5 mins / day</span>
+                        </li>
+                        <li>
+                            <span>Engaged</span><span>10 mins / day</span>
+                        </li>
+                        <li>
+                            <span>Dedicated</span><span>20 mins / day</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/10.2.0/swiper-bundle.min.js" integrity="sha512-QwpsxtdZRih55GaU/Ce2Baqoy2tEv9GltjAG8yuTy2k9lHqK7VHHp3wWWe+yITYKZlsT3AaCj49ZxMYPp46iJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="script/main.js"></script>
+</body>
+</html>
