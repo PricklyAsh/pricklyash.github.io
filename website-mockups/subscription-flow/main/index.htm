@@ -11,10 +11,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
+<body data-page="0">
     <main>
         <div id="progressBar">
-            <div class="bar" style="width: 10%;"></div>
+            <div class="bar" style="width: 0%;"></div>
         </div>
         <div class="swiper">
             <div class="swiper-wrapper">
@@ -55,7 +55,7 @@
                     </ul>
                     <div class="bottom">
                         <div class="bg"></div>
-                        <button id="next" data-goto="1">
+                        <button id="next" data-swiper-to="1">
                             Next
                         </button>
                     </div>
@@ -69,19 +69,150 @@
                         </p>
                     </div>
                     <ul class="selectors">
-                        <li>
+                        <li data-go-to-page="2">
                             <span>Casual</span><span>5 mins / day</span>
                         </li>
-                        <li>
+                        <li data-go-to-page="2">
                             <span>Engaged</span><span>10 mins / day</span>
                         </li>
-                        <li>
+                        <li data-go-to-page="2">
                             <span>Dedicated</span><span>20 mins / day</span>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
+        <section id="gifts" style="display: none">
+            <div class="rays"></div>
+            <div>
+                <div class="copy">
+                    <h3>Redeem</h3>
+                    <p>The more your kid learns,<br> the more rewards they will earn!</p>
+                </div>
+                <div class="slideshow">
+                    <ul class="contents">
+                        <li id="gift1" class="l2" data-info="Apple gift card"></li>
+                        <li id="gift2" class="l1" data-info="Fortnite V-Bux"></li>
+                        <li id="gift3" class="main" data-info="Robux Gift Vouchers"></li>
+                        <li id="gift4" class="r1" data-info="Minecoins"></li>
+                        <li id="gift5" class="r2" data-info="Talking Tom currency"></li>
+                        <p id="info">dddd</p>
+                    </ul>
+                </div>
+            </div>
+            <button class="trans" data-go-to-page="3">skip</button>
+        </section>
+        <section id="letsGo" style="display: none">
+            <div class="top">
+                <h3>Let&#x27;s go!</h3>
+            </div>
+            <ul>
+                <li>
+                    <div class="icon um"></div>
+                    <div class="copy">
+                        <h4>Ultimate Motivation</h4>
+                        <p>
+                            Harness the power of rewards like Robux to make learning engaging and fun.
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <div class="icon gl"></div>
+                    <div class="copy">
+                        <h4>Gamified Learning</h4>
+                        <p>
+                            Dive into interactive games that transform learning into a thrilling adventure.
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <div class="icon gv"></div>
+                    <div class="copy">
+                        <h4>Great Value</h4>
+                        <p>
+                            Invest in your kid's learning by enabling them to earn rewards for their efforts.
+                        </p>
+                    </div>
+                </li>
+            </ul>
+            <button>Next</button>
+        </section>
+        <section id="learningPlan" style="display: none">
+            <h4>Select your kid's<br>learning plan</h4>
+            <p>Based on what you've shared, we recommended the following plan</p>
+            <ul>
+                <li class="plan">
+                    <div class="info">
+                        <strong>Prickly Plus</strong><br>
+                        £4.99 p/m (7-day free trial)
+                    </div>
+                    <div class="more-info">
+                        <ul>
+                            <li>
+                                <strong>LEARN</strong><br>
+                                Unlock <strong>2.5</strong> hours of rewarded learning p/m
+                            </li>
+                            <li>
+                                <strong>EARN</strong><br>
+                                Unlock up to <strong>£5</strong> of rewards p/m
+                            </li>
+                            <li>
+                                <strong>CREATE</strong><br>
+                                <strong>12</strong> Prickly AI tokens p/m + <strong>5</strong> bonus
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="plan">
+                    <div class="info">
+                        <strong>Prickly Pro</strong><br>
+                        £9.99 p/m
+                    </div>
+                    <div class="more-info">
+                        <ul>
+                            <li>
+                                <strong>LEARN</strong><br>
+                                Unlock <strong>2.5 hours</strong> of rewarded learning p/m
+                            </li>
+                            <li>
+                                <strong>EARN</strong><br>
+                                Unlock up to <strong>£10</strong> of rewards p/m
+                            </li>
+                            <li>
+                                <strong>CREATE</strong><br>
+                                <strong>20</strong> Prickly AI tokens p/m + <strong>10</strong> bonus
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="plan">
+                    <div class="info">
+                        <strong>Prickly Drops</strong><br>
+                        £19.99 p/m
+                    </div>
+                    <div class="more-info">
+                        <ul>
+                            <li>
+                                <strong>LEARN</strong><br>
+                                Unlock <strong>10 hours</strong> of rewarded learning p/m
+                            </li>
+                            <li>
+                                <strong>EARN</strong><br>
+                                Unlock up to <strong>£20</strong> of rewards p/m
+                            </li>
+                            <li>
+                                <strong>CREATE</strong><br>
+                                <strong>40</strong> Prickly AI tokens p/m + <strong>20</strong> bonus
+                            </li>
+                            <li>
+                                <strong>DROPS</strong><br>
+                                Access to Drops Premium worth <strong>£10</strong> p/m
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </section>
     </main>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/10.2.0/swiper-bundle.min.js" integrity="sha512-QwpsxtdZRih55GaU/Ce2Baqoy2tEv9GltjAG8yuTy2k9lHqK7VHHp3wWWe+yITYKZlsT3AaCj49ZxMYPp46iJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
