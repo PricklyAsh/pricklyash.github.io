@@ -130,7 +130,7 @@ var subscriptionFlow = {
         $("body").on("click",".selectors li", function(){
           if ($(this).parent().parent().attr("id") == "learn"){
             $(this).toggleClass("selected");
-            $(this).hasClass("selected") ? subscriptionFlow.selections.push($.trim($(this).text().toLowerCase())) : subscriptionFlow.selections.pop($.trim($(this).text().toLowerCase()))
+            $(this).hasClass("selected") ? subscriptionFlow.selections.push($.trim($(this).text().toLowerCase()).replace(/ /g, "_")) : subscriptionFlow.selections.pop($.trim($(this).text().toLowerCase()).replace(/ /g, "_"))
             $("[data-learn]").attr("data-learn",subscriptionFlow.selections.join(","));
             if ($(this).parent().find(".selected").length) {
               // swiper.allowSlideNext = true;
