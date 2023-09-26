@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body data-page="0">
+<body data-page="5">
     <main id="subscriptionFlow">
         <div id="progressBar">
             <div class="bar" style="width: 15%;"></div>
@@ -245,7 +245,7 @@
             <button id="openStripe">
                 Next
             </button>
-            <p class="continue">
+            <p class="continue" data-go-to-page="6">
                 Continue without subscribing?
             </p>
             <p>
@@ -255,10 +255,45 @@
                 </small>
             </p>
         </section>
-        <section id="areYouSure">
+        <section id="areYouSure" style="display: none;">
             <h4>Are you sure you?</h4>
             <p>Your kid will gain access to more rewarded learning as a subscriber.</p>
             <p>If you're still unsure you can start a free trail by subscribing to Prickly Plus</p>
+            <div class="plan expand" id="plus">
+                <div class="info">
+                    <strong>Prickly Plus</strong><br>
+                    £4.99 p/m (7-day free trial)
+                    <div class="icon"></div>
+                </div>
+                <div class="more-info">
+                    <ul>
+                        <li>
+                            <strong>LEARN</strong><br>
+                            Unlock <strong>2.5</strong> hours of rewarded learning p/m
+                        </li>
+                        <li>
+                            <strong>EARN</strong><br>
+                            Unlock up to <strong>£5</strong> of rewards p/m
+                        </li>
+                        <li>
+                            <strong>CREATE</strong><br>
+                            <strong>12</strong> Prickly AI tokens p/m + <strong>5</strong> bonus
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <button id="openStripe">
+                Next
+            </button>
+            <p class="continue">
+                I don't want to subscribe right now
+            </p>
+            <p>
+                <small>
+                    All subscriptions automatically renew<br>
+                    Cancel anytime. No hassle, no risk
+                </small>
+            </p>
         </section>
     </main>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>

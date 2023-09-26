@@ -22,7 +22,8 @@ var subscriptionFlow = {
     "gifts",
     "inputEmail",
     "letsGo",
-    "learningPlan"
+    "learningPlan",
+    "areYouSure"
   ],
   selections: [],
   selectors: {
@@ -120,6 +121,9 @@ var subscriptionFlow = {
             $("#drops").get(0).scrollIntoView();
           }
         },300);
+    } else if (page == 6){
+      $("#learningPlan").hide();
+      $("#areYouSure").show();
     }
   },
   events: {
@@ -207,6 +211,7 @@ var subscriptionFlow = {
 
         $("body").on("click", "#submit", function(){
           console.log($("#emailAddress").val());
+          $("body").attr("data-page", 4);
           subscriptionFlow.onPageChange(4);
         });
       }
