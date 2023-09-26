@@ -71,6 +71,7 @@ var subscriptionFlow = {
     } else if (page == 3) {
       $("#gifts").fadeOut();
       $("#inputEmail").fadeIn();
+      $("")
 
     } else if (page == 4) {
       this.progressBar.update(60);
@@ -180,6 +181,7 @@ var subscriptionFlow = {
 
         $("body").on("click", "#inputEmail .checkbox", function() {
           $(this).toggleClass("ticked");
+          $("[data-checked]").attr("data-checked", $(this).hasClass("ticked"))
         });
 
         $("body").on("click","#learningPlan .plan", function(){
@@ -204,6 +206,7 @@ var subscriptionFlow = {
         });
 
         $("body").on("click", "#submit", function(){
+          console.log($("#emailAddress").val());
           subscriptionFlow.onPageChange(4);
         });
       }
