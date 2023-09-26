@@ -11,10 +11,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body data-page="0">
+<body data-page="3">
     <main id="subscriptionFlow">
         <div id="progressBar">
-            <div class="bar" style="width: 0%;"></div>
+            <div class="bar" style="width: 15%;"></div>
         </div>
         <div class="swiper" id="learnEarn" data-learn="" data-earn="">
             <div class="swiper-wrapper">
@@ -102,6 +102,31 @@
             </div>
             <button class="trans" data-go-to-page="3">skip</button>
         </section>
+        <section id="inputEmail" style="display: none" data-email="" data-checked="">
+            <div class="split-main">
+                <h4>Sign up to Prickly Bear</h4>
+                <p>Get your kid learning and <br>learning today!</p>
+                <strong>Parent email address</strong>
+                <input type="text" id="emailAddress" name="emailAddress" placeholder="Parent email address">
+                <div class="checkbox">
+                    <div class="box"></div>
+                    <p>Check the box to allow Prickly Bear<br> to send emails about your account</p>
+                </div>
+                <button id="submit">Sign up to Prickly Bear</button>
+            </div>
+            <div class="split-quote">
+                <img src="images/quote-carla.png" width="90">
+                <figure class="quote">
+                    <blockquote>
+                        "Prickly Bear brings innovation to learning and makes considered use of rewards to encourage kids to push their own learning boundaries, discovering a new learning world"
+                    </blockquote>
+                    <figcaption>
+                        Carla Aerts<br>
+                        <cite>EdTech Thought Leader</cite>
+                    </figcaption>
+                </figure>
+            </div>
+        </section>
         <section id="letsGo" style="display: none">
             <div class="top">
                 <h3>Let&#x27;s go!</h3>
@@ -135,11 +160,11 @@
                     </div>
                 </li>
             </ul>
-            <button data-go-to-page="4">Next</button>
+            <button data-go-to-page="5">Next</button>
         </section>
         <section id="learningPlan" style="display: none" data-tier="">
             <h4>Select your kid's<br>learning plan</h4>
-            <p>Based on what you've shared, we recommended the following plan</p>
+            <p class="top">Based on what you've shared, we recommended the following plan</p>
             <div class="scroll-area">
                 <ul>
                     <li class="plan" id="plus">

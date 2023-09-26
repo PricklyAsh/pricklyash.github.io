@@ -20,6 +20,7 @@ var subscriptionFlow = {
     "learn",
     "earn",
     "gifts",
+    "inputEmail",
     "letsGo",
     "learningPlan"
   ],
@@ -62,14 +63,18 @@ var subscriptionFlow = {
   },
   onPageChange: function(page){
     if (page == 1) {
-      this.progressBar.update(20);
+      this.progressBar.update(30);
       this.selectors.animate(this.selectors.elements.earn);
-    } else if (page == 2){
+    } else if (page == 2) {
       slideshow.init();
-      this.progressBar.update(40);
-    } else if (page == 3){
-      this.progressBar.update(60);
+      this.progressBar.update(45);
+    } else if (page == 3) {
       $("#gifts").fadeOut();
+      $("#inputEmail").fadeIn();
+
+    } else if (page == 4) {
+      this.progressBar.update(60);
+      $("#inputEmail").fadeOut();
       $("#letsGo").fadeIn(function(){
         $("#letsGo").find("li").each(function(index){
           $(this).delay(index * 500).queue(function () {
@@ -77,8 +82,8 @@ var subscriptionFlow = {
           });
         });
       });
-    } else if (page == 4){
-        this.progressBar.update(80);
+    } else if (page == 5){
+        this.progressBar.update(75);
         setTimeout(function(){
           $("#letsGo").hide();
           $("#learningPlan").fadeIn("slow");
@@ -92,21 +97,21 @@ var subscriptionFlow = {
 
           var duration = $("[data-earn]").data("earn");
           if (duration == "casual"){
-            $("#plus").addClass("expand");
+            $("#plus").addClass("expand").addClass("recommended");
             $("[data-tier]").data("tier","plus")
             $(".more-info").css("height","0");
             $("#plus .more-info").css("height",$("#plus .more-info").data("height")+"px");
 
             $("#plus").get(0).scrollIntoView();
           } else if (duration == "engaged"){
-            $("#pro").addClass("expand");
+            $("#pro").addClass("expand").addClass("recommended");
             $("[data-tier]").data("tier","pro")
             $(".more-info").css("height","0");
             $("#pro .more-info").css("height",$("#pro .more-info").data("height")+"px");
 
             $("#pro").get(0).scrollIntoView();
           } else if (duration == "dedicated"){
-            $("#drops").addClass("expand");
+            $("#drops").addClass("expand").addClass("recommended");
             $("[data-tier]").data("tier","drops")
             $(".more-info").css("height","0");
             $("#drops .more-info").css("height",$("#drops .more-info").data("height")+"px");
@@ -173,6 +178,10 @@ var subscriptionFlow = {
           }, 800);
         });
 
+        $("body").on("click", "#inputEmail .checkbox", function() {
+          $(this).toggleClass("ticked");
+        });
+
         $("body").on("click","#learningPlan .plan", function(){
           console.log($(this));
           var currentMoreInfo = $(this).find(".more-info");
@@ -192,6 +201,10 @@ var subscriptionFlow = {
           } else if (tier == "drops") {
             window.open("https://buy.stripe.com/3cs4h02Qv3J32kwaEK", "_self");
           }
+        });
+
+        $("body").on("click", "#submit", function(){
+          subscriptionFlow.onPageChange(4);
         });
       }
     }
@@ -218,7 +231,7 @@ var slideshow = {
       setInterval(()=> this.transition(), 2000)
   },
   transition: function(){
-    if (!shouldAnimate){
+    if (!shouldAnimate && $("[data-page]").data("page") == 2){
       subscriptionFlow.onPageChange(3);
       return
     }
@@ -260,9 +273,15 @@ subscriptionFlow.init();
 
 mobileChecker();
 function mobileChecker(){
-  $("body").removeClass("mobile").addClass("desktop");
+  if ($(window).width() < $(window).height()) {
+    $("body").addClass("squashed");
+  } else {
+    $("body").removeClass("squashed");
+  }
   if ($(window).width() < 700) {
-      $("body").addClass("mobile").removeClass("desktop");
+    $("body").addClass("mobile").removeClass("desktop");
+  } else {
+    $("body").removeClass("mobile").addClass("desktop");
   }
 }
 
