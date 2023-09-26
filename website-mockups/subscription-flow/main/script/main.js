@@ -25,6 +25,7 @@ var subscriptionFlow = {
     "learningPlan",
     "areYouSure"
   ],
+  backPressed: false,
   selections: [],
   selectors: {
     elements: {
@@ -62,6 +63,9 @@ var subscriptionFlow = {
     $("#"+ this.pages[pageNumb]).show();
     this.onPageChange(pageNumb);
   },
+  onBackPressed: function(page){
+
+  },
   onPageChange: function(page){
     if (page == 1) {
       this.progressBar.update(30);
@@ -72,11 +76,10 @@ var subscriptionFlow = {
     } else if (page == 3) {
       $("#gifts").fadeOut();
       $("#inputEmail").fadeIn();
-      $("")
-
     } else if (page == 4) {
       this.progressBar.update(60);
       $("#inputEmail").fadeOut();
+      $("#learningPlan").fadeOut();
       $("#letsGo").fadeIn(function(){
         $("#letsGo").find("li").each(function(index){
           $(this).delay(index * 500).queue(function () {
@@ -86,6 +89,12 @@ var subscriptionFlow = {
       });
     } else if (page == 5){
         this.progressBar.update(75);
+        if (this.backPressed){
+          $("#areYouSure").fadeOut();
+          $("#learningPlan").show();
+          this.backPressed = false;
+          return;
+        }
         setTimeout(function(){
           $("#letsGo").hide();
           $("#learningPlan").fadeIn("slow");
@@ -203,7 +212,7 @@ var subscriptionFlow = {
           $(this).addClass("expand").addClass("selected");
           $("[data-tier]").data("tier",$(this).attr("id"))
           if ($("body").hasClass("squashed")) {
-            $(".more-info").css("height","0");
+            $("#learningPlan .more-info").css("height","0");
           }
           currentMoreInfo.css("height",currentMoreInfo.data("height")+"px");
         });
@@ -224,6 +233,14 @@ var subscriptionFlow = {
           console.log($("#emailAddress").val());
           $("body").attr("data-page", 4);
           subscriptionFlow.onPageChange(4);
+        });
+
+        $("body").on("click", "#back", function(){
+          var currPage = $("[data-page]").attr("data-page");
+          var prevPage = currPage -= 1;
+          subscriptionFlow.backPressed = true;
+          subscriptionFlow.onPageChange(prevPage);
+          $("body").attr("data-page", prevPage);
         });
       }
     }
