@@ -128,6 +128,7 @@ var subscriptionFlow = {
     } else if (page == 6){
       $("#learningPlan").hide();
       $("#areYouSure").show();
+      $("[data-tier]").data("tier", "plus");
     }
   },
   events: {
@@ -208,13 +209,14 @@ var subscriptionFlow = {
         });
 
         $("body").on("click", "#openStripe", function(){
+          var email = $("#emailAddress").val().trim();
           var tier = $("[data-tier]").data("tier");
           if (tier == "plus") {
-            window.open("https://buy.stripe.com/4gwcNwdv9djD9MY004", "_self");
+            window.open("https://buy.stripe.com/4gwcNwdv9djD9MY004?prefilled_email=" + email, "_self");
           } else if (tier == "plus") {
-            window.open("https://buy.stripe.com/9AQ00K2Qv5Rb0coeUZ", "_self");
+            window.open("https://buy.stripe.com/9AQ00K2Qv5Rb0coeUZ?prefilled_email=" + email, "_self");
           } else if (tier == "drops") {
-            window.open("https://buy.stripe.com/3cs4h02Qv3J32kwaEK", "_self");
+            window.open("https://buy.stripe.com/3cs4h02Qv3J32kwaEK?prefilled_email=" + email, "_self");
           }
         });
 
