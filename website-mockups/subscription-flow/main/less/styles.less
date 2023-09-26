@@ -197,6 +197,7 @@ body {
     transition: border 250ms ease-in-out;
     position: relative;
     margin-top: 15px;
+    max-width: 300px;
     .info {
         line-height: 1.5;
         position: relative;
@@ -269,7 +270,6 @@ body {
         }
     }
     &.expand {
-        border-color: #3B00B9;
         &#plus div.icon::after {
             height: 100%;
         }
@@ -278,6 +278,25 @@ body {
         }
         &#drops div.icon::after {
             height: 100%;
+        }
+    }
+    &.selected {
+        border-color: #3B00B9;
+        background-color: white;
+        &#plus {
+            .more-info > ul {
+                border-top-color: #FFEA00;
+            }
+        }
+        &#pro {
+            .more-info > ul {
+                border-top-color: #F754D9;
+            }
+        }
+        &#drops {
+            .more-info > ul {
+                border-top-color: #44FEC1;
+            }
         }
     }
     &.recommended {
@@ -303,7 +322,7 @@ body {
     }
     ul {
         font-size: 80%;
-        border-top: 2px solid black;
+        border-top: 2px solid #CBD1E0;
         margin-top: 10px !important;
         padding-top: 10px !important;
         li+li {
@@ -317,6 +336,7 @@ body {
     position: relative;
     width: 100%;
     min-height: 100%;
+    font-size: 16px;
     #progressBar {
         width: 90%;
         height: 10px;
@@ -954,6 +974,7 @@ body {
         top: 0;
         display: flex;
         flex-direction: column;
+        align-items: center;
         h4 {
             margin: 0;
             font-weight: 600;
@@ -1097,11 +1118,22 @@ body {
         }
         #learningPlan {
             .scroll-area {
-                ul {
-                    // display: flex;
-                    // flex-direction: row;
-                    // justify-content: space-evenly;
+                &>ul {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    gap: 20px;
+                    .icon {
+                        transform: scale(.8) translateY(-50%);
+                        transform-origin: top right;
+                    }
                 }
+            }
+        }
+        #areYouSure {
+            .icon {
+                transform: scale(.8) translateY(-50%);
+                transform-origin: top right;
             }
         }
         

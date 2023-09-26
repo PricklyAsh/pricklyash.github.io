@@ -93,32 +93,36 @@ var subscriptionFlow = {
             var moreInfoEle = $(this).find(".more-info");
             var outerHeight = moreInfoEle.outerHeight();
             moreInfoEle.attr("data-height", outerHeight);
-            console.log(moreInfoEle, outerHeight)
-            moreInfoEle.css("height", 0);
+
+            if ($("body").hasClass("squashed")) {
+              moreInfoEle.css("height", 0);
+            }
+
           });
 
           var duration = $("[data-earn]").data("earn");
           if (duration == "casual"){
-            $("#plus").addClass("expand").addClass("recommended");
-            $("[data-tier]").data("tier","plus")
-            $(".more-info").css("height","0");
+            $("#plus").addClass("expand").addClass("recommended").addClass("selected");
+            $("[data-tier]").data("tier","plus");
             $("#plus .more-info").css("height",$("#plus .more-info").data("height")+"px");
-
             $("#plus").get(0).scrollIntoView();
+
+            
           } else if (duration == "engaged"){
-            $("#pro").addClass("expand").addClass("recommended");
-            $("[data-tier]").data("tier","pro")
-            $(".more-info").css("height","0");
+            $("#pro").addClass("expand").addClass("recommended").addClass("selected");
+            $("[data-tier]").data("tier","pro");
             $("#pro .more-info").css("height",$("#pro .more-info").data("height")+"px");
 
             $("#pro").get(0).scrollIntoView();
           } else if (duration == "dedicated"){
-            $("#drops").addClass("expand").addClass("recommended");
+            $("#drops").addClass("expand").addClass("recommended").addClass("selected");
             $("[data-tier]").data("tier","drops")
-            $(".more-info").css("height","0");
             $("#drops .more-info").css("height",$("#drops .more-info").data("height")+"px");
 
             $("#drops").get(0).scrollIntoView();
+            if ($("body").hasClass("squashed")) {
+              $(".more-info").css("height","0");
+            }
           }
         },300);
     } else if (page == 6){
@@ -191,10 +195,15 @@ var subscriptionFlow = {
         $("body").on("click","#learningPlan .plan", function(){
           console.log($(this));
           var currentMoreInfo = $(this).find(".more-info");
-          $("#learningPlan .plan").removeClass("expand")
-          $(this).addClass("expand");
+          $("#learningPlan .plan").removeClass("selected");
+          if (!$("body").hasClass("squashed")){
+            $("#learningPlan .plan").removeClass("expand")
+          }
+          $(this).addClass("expand").addClass("selected");
           $("[data-tier]").data("tier",$(this).attr("id"))
-          $(".more-info").css("height","0");
+          if ($("body").hasClass("squashed")) {
+            $(".more-info").css("height","0");
+          }
           currentMoreInfo.css("height",currentMoreInfo.data("height")+"px");
         });
 
