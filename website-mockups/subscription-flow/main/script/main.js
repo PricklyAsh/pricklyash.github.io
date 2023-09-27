@@ -26,6 +26,7 @@ var subscriptionFlow = {
     "areYouSure"
   ],
   backPressed: false,
+  earnSelected: false,
   selections: [],
   selectors: {
     elements: {
@@ -67,11 +68,29 @@ var subscriptionFlow = {
 
   },
   onPageChange: function(page){
-    if (page == 1) {
+    if (page == 0) {
+      this.progressBar.update(15);
+      swiper.slideTo(0);
+    } else if (page == 1) {
       this.progressBar.update(30);
       this.selectors.animate(this.selectors.elements.earn);
+      $("#learnEarn").fadeIn();
+      $("#gifts").fadeOut();
     } else if (page == 2) {
-      slideshow.init();
+      $("#learnEarn").fadeOut();
+      this.earnSelected = false;
+      if (this.backPressed){
+        $("#inputEmail").fadeOut();
+        this.backPressed = false;
+        $("#gifts").fadeIn();
+      } else {
+        $("#gifts").fadeIn();
+      }
+      if (!swiperPB.swiperInitialised) {
+        slideshow.init();
+        swiperPB.swiperInitialised = true;
+      }
+      
       this.progressBar.update(45);
     } else if (page == 3) {
       $("#gifts").fadeOut();
@@ -110,28 +129,33 @@ var subscriptionFlow = {
           });
 
           var duration = $("[data-earn]").data("earn");
-          if (duration == "casual"){
-            $("#plus").addClass("expand").addClass("recommended").addClass("selected");
-            $("[data-tier]").data("tier","plus");
-            $("#plus .more-info").css("height",$("#plus .more-info").data("height")+"px");
-            $("#plus").get(0).scrollIntoView();
+          if (duration == "dedicated" || subscriptionFlow.selections.includes("language")){
+            $("#drops").addClass("expand").addClass("recommended").addClass("selected");
+            $("[data-tier]").data("tier","drops")
+            $("#drops .more-info").css("height",$("#drops .more-info").data("height")+"px");
 
-            
+            if ($("body").hasClass("squashed")) {
+              // $(".more-info").css("height","0");
+            }
+            $("#drops").get(0).scrollIntoView();
           } else if (duration == "engaged"){
             $("#pro").addClass("expand").addClass("recommended").addClass("selected");
             $("[data-tier]").data("tier","pro");
             $("#pro .more-info").css("height",$("#pro .more-info").data("height")+"px");
 
-            $("#pro").get(0).scrollIntoView();
-          } else if (duration == "dedicated"){
-            $("#drops").addClass("expand").addClass("recommended").addClass("selected");
-            $("[data-tier]").data("tier","drops")
-            $("#drops .more-info").css("height",$("#drops .more-info").data("height")+"px");
-
-            $("#drops").get(0).scrollIntoView();
             if ($("body").hasClass("squashed")) {
-              $(".more-info").css("height","0");
+              // $(".more-info").css("height","0");
             }
+            $("#drops").get(0).scrollIntoView();
+          } else if (duration == "casual"){
+            $("#plus").addClass("expand").addClass("recommended").addClass("selected");
+            $("[data-tier]").data("tier","plus");
+            $("#plus .more-info").css("height",$("#plus .more-info").data("height")+"px");
+            if ($("body").hasClass("squashed")) {
+              // $(".more-info").css("height","0");
+            }
+            $("#drops").get(0).scrollIntoView();
+            
           }
         },300);
     } else if (page == 6){
@@ -139,6 +163,7 @@ var subscriptionFlow = {
       $("#areYouSure").show();
       $("[data-tier]").data("tier", "plus");
     }
+    this.backPressed = false;
   },
   events: {
     window: {
@@ -150,7 +175,6 @@ var subscriptionFlow = {
       slideTo: function(){
       },
       init: function(){
-        var oneSelected = false;
         $("body").on("click",".selectors li", function(){
           if ($(this).parent().parent().attr("id") == "learn"){
             $(this).toggleClass("selected");
@@ -164,10 +188,11 @@ var subscriptionFlow = {
               $(".bottom").removeClass("show");
             }
           } else {
-            if (!oneSelected){
+            if (!subscriptionFlow.earnSelected){
+              $(this).parent().find(".selected").removeClass("selected").removeClass("animate");
               $(this).addClass("selected").addClass("animate");
               $("[data-earn]").attr("data-earn", $(this).find("span:nth-of-type(1)").text().toLowerCase());
-              oneSelected = true;
+              subscriptionFlow.earnSelected = true;
             }
           }
           
@@ -186,8 +211,9 @@ var subscriptionFlow = {
 
         $("body").on("click", "[data-go-to-page]", function(){
           var pageInt = parseInt($(this).data("go-to-page"));
-          console.log(pageInt);
-          if (!oneSelected && pageInt == 2 || pageInt != 2){
+          console.log("this:",this, subscriptionFlow.earnSelected, pageInt
+          );
+          if (!subscriptionFlow.earnSelected && pageInt == 2 || pageInt != 2){
             $(this).addClass("animate");
           }
           
@@ -239,8 +265,13 @@ var subscriptionFlow = {
           var currPage = $("[data-page]").attr("data-page");
           var prevPage = currPage -= 1;
           subscriptionFlow.backPressed = true;
-          subscriptionFlow.onPageChange(prevPage);
-          $("body").attr("data-page", prevPage);
+
+          if (!currPage) {
+            window.open("/get-started-subscription/", "_self");
+          } else {
+            subscriptionFlow.onPageChange(prevPage);
+            $("body").attr("data-page", prevPage);
+          }
         });
       }
     }
@@ -251,6 +282,7 @@ var slideshow = {
   elements: $(".contents > li"),
   currentIndex: 0,
   shouldAnimate: false,
+  swiperInitialised: false,
   init: function(){
       this.currentIndex = Math.floor(this.elements.length / 2);
       $(this.elements[this.currentIndex]).addClass("main");
