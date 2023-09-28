@@ -1,6 +1,4 @@
-var debug = false;
-
-if (!debug) {
+if (window.location.host != "localhost:5500") {
   console = {
     log: function(){
       
@@ -77,7 +75,8 @@ var subscriptionFlow = {
   onBackPressed: function(page){
 
   },
-  onPageChange: function(page){
+  onPageChange: function(page) {
+    console.log("subflow-" + page + "-"+this.pages[page])
     if (page == 0) {
       this.progressBar.update(15);
       swiper.slideTo(0);
@@ -270,6 +269,18 @@ var subscriptionFlow = {
           console.log($("#emailAddress").val());
           $("body").attr("data-page", 4);
           subscriptionFlow.onPageChange(4);
+        });
+
+
+        var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
+        $("body").on("input", "#emailAddress", function(){
+          var userinput = $(this).val();
+          if(!pattern.test(userinput))
+          {
+            $("#submit").attr("disabled","true");
+          } else {
+            $("#submit").removeAttr("disabled");
+          }
         });
 
         $("body").on("click", "#back", function(){
