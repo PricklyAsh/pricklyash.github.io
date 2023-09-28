@@ -182,7 +182,7 @@ body {
         left: 0;
     }
 }
-[data-page="3"], [data-page="5"] {
+[data-page="3"], [data-page="5"], [data-page="6"] {
     #subscriptionFlow {
         #progressBar {
             background-color: #CBD1E0;
@@ -200,8 +200,10 @@ body {
         background-image: url("../images/back-lighter.png");
     }
 }
-body:not([data-page="0"]) #learnEarn, body:not([data-page="1"]) #learnEarn {
-  pointer-events: none;
+body:not([data-page="0"]):not([data-page="1"])  {
+    #learnEarn {
+        pointer-events: none;
+    }
 }
 .desktop:not(.squashed)[data-page="3"] {
     #subscriptionFlow #back {
@@ -222,6 +224,11 @@ body:not([data-page="0"]) #learnEarn, body:not([data-page="1"]) #learnEarn {
     .info {
         line-height: 1.5;
         position: relative;
+        p {
+            margin: 0;
+            text-align: left !important;
+            font-size: 14px;
+        }
     }
     div.icon {
         position: absolute;
@@ -852,7 +859,14 @@ body:not([data-page="0"]) #learnEarn, body:not([data-page="1"]) #learnEarn {
         align-items: center;
         top: 0;
         height: 100%;
+        width: 100%;
         position: absolute;
+        justify-content: space-between;
+
+        .main {
+            display: flex;
+            flex-direction: column;
+        }
     
         button {
             margin: 0 auto;
@@ -869,6 +883,8 @@ body:not([data-page="0"]) #learnEarn, body:not([data-page="1"]) #learnEarn {
             box-sizing: border-box;
             padding: 0 30px;
             max-width: 1200px;
+            overflow-y: scroll;
+            overflow-x: hidden;
             li {
                 display: flex;
                 flex-direction: row;
@@ -939,12 +955,39 @@ body:not([data-page="0"]) #learnEarn, body:not([data-page="1"]) #learnEarn {
                 margin-top: 20px;
             }
         }
+        .main {
+            height: 100%;
+            position: relative;
+        }
+        .partners {
+            background-color: #EEF3FF;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            h5 {
+                color: #3B00B9;
+                font-size: 20px;
+                margin: 0;
+            }
+
+            .logos {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                img {
+                    width: 120px;
+                    margin: 10px 16px 0px 16px;
+                }
+            }
+        }
     
         h4 {
             margin: 0;
             font-weight: 600;
             color: white;
-            font-size: 22px;
+            font-size: 18px;
             text-align: center;
             margin-bottom: 10px;
         }
@@ -953,7 +996,7 @@ body:not([data-page="0"]) #learnEarn, body:not([data-page="1"]) #learnEarn {
             color: white;
             margin: 0;
             text-align: center;
-            font-size: 16px;
+            font-size: 14px;
         }
     }
     
@@ -978,7 +1021,9 @@ body:not([data-page="0"]) #learnEarn, body:not([data-page="1"]) #learnEarn {
             margin-top: 30px;
             font-size: 34px;
         }
-
+        footer {
+            font-size: 90%;
+        }
         p {
             color: black;
             text-align: center;
@@ -1035,6 +1080,9 @@ body:not([data-page="0"]) #learnEarn, body:not([data-page="1"]) #learnEarn {
             margin-top: 30px;
             font-size: 34px;
         }
+        footer {
+            font-size: 90%;
+        }
         p {
             text-align: center;
             &.continue {
@@ -1042,9 +1090,9 @@ body:not([data-page="0"]) #learnEarn, body:not([data-page="1"]) #learnEarn {
             }
         }
         a {
-            color: #3B00B9;
+            color: black;
             &:visited {
-                color: #3B00B9;
+                color: black;
             }
         }
         ul {
@@ -1157,9 +1205,27 @@ body:not([data-page="0"]) #learnEarn, body:not([data-page="1"]) #learnEarn {
         #letsGo {
             ul {
                 li {
-                    margin-bottom: 40px;
+                    margin-bottom: 30px;
                     &:nth-child(odd){
                         flex-direction: row-reverse;
+                    }
+                }
+            }
+            .main {
+                height: calc(100% - 100px);
+            }
+            .partners {
+                width: 100%;
+                padding: 10px;
+                height: 100px;
+                h5 {
+                    font-size: 14px;
+                }
+                .logos {
+                    flex-wrap: wrap;
+                    padding: 0 40px;
+                    img {
+                        width: 25%;
                     }
                 }
             }
@@ -1180,7 +1246,7 @@ body:not([data-page="0"]) #learnEarn, body:not([data-page="1"]) #learnEarn {
         .plan {
             padding: 20px 10px;
             .info strong {
-                font-size: 26px;
+                font-size: 24px;
             }
             &.recommended {
                 &::after {
@@ -1213,18 +1279,41 @@ body:not([data-page="0"]) #learnEarn, body:not([data-page="1"]) #learnEarn {
         #letsGo {
             .top {
                 padding-top: 80px;
+                h3 {
+                    font-size: 54px;
+                }
             }
             ul {
                 flex-direction: row;
                 li {
                     flex-direction: column;
-                    padding: 30px 40px 60px;
+                    padding: 30px 25px 60px;
                     box-sizing: border-box;
+                    h4 {
+                        margin-bottom: 30px;
+                        font-size: 30px;
+                    }
+                    p {
+                        padding: 0 20px;
+                        box-sizing: border-box;
+                        font-size: 16px;
+                    }
                 }
+            }
+            button {
+                bottom: 70px;
+                position: absolute;
+            }
+            .partners {
+                height: 150px;
+                justify-content: center;
             }
         }
         #learningPlan {
             padding-top: 60px;
+            h4 {
+                font-size: 40px;
+            }
             .scroll-area {
                 &>ul {
                     display: flex;

@@ -94,6 +94,7 @@ var subscriptionFlow = {
       this.progressBar.update(45);
     } else if (page == 3) {
       $("#gifts").fadeOut();
+      $("#letsGo").fadeOut();
       $("#inputEmail").fadeIn();
     } else if (page == 4) {
       this.progressBar.update(60);
