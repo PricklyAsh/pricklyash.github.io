@@ -132,7 +132,7 @@ var subscriptionFlow = {
           var duration = $("[data-earn]").data("earn");
           if (duration == "dedicated" || subscriptionFlow.selections.includes("language")){
             $("#drops").addClass("expand").addClass("recommended").addClass("selected");
-            $("[data-tier]").data("tier","drops")
+            $("[data-tier]").attr("data-tier","drops")
             $("#drops .more-info").css("height",$("#drops .more-info").data("height")+"px");
 
             if ($("body").hasClass("squashed")) {
@@ -141,7 +141,7 @@ var subscriptionFlow = {
             $("#drops").get(0).scrollIntoView();
           } else if (duration == "engaged"){
             $("#pro").addClass("expand").addClass("recommended").addClass("selected");
-            $("[data-tier]").data("tier","pro");
+            $("[data-tier]").attr("data-tier","pro")
             $("#pro .more-info").css("height",$("#pro .more-info").data("height")+"px");
 
             if ($("body").hasClass("squashed")) {
@@ -150,7 +150,7 @@ var subscriptionFlow = {
             $("#drops").get(0).scrollIntoView();
           } else if (duration == "casual"){
             $("#plus").addClass("expand").addClass("recommended").addClass("selected");
-            $("[data-tier]").data("tier","plus");
+            $("[data-tier]").attr("data-tier","plus")
             $("#plus .more-info").css("height",$("#plus .more-info").data("height")+"px");
             if ($("body").hasClass("squashed")) {
               // $(".more-info").css("height","0");
@@ -162,7 +162,7 @@ var subscriptionFlow = {
     } else if (page == 6){
       $("#learningPlan").hide();
       $("#areYouSure").show();
-      $("[data-tier]").data("tier", "plus");
+      $("[data-tier]").attr("data-tier","plus")
     }
     this.backPressed = false;
   },
@@ -237,7 +237,7 @@ var subscriptionFlow = {
             $("#learningPlan .plan").removeClass("expand")
           }
           $(this).addClass("expand").addClass("selected");
-          $("[data-tier]").data("tier",$(this).attr("id"))
+          $("[data-tier]").attr("data-tier",$(this).attr("id"))
           if ($("body").hasClass("squashed")) {
             $("#learningPlan .more-info").css("height","0");
           }
@@ -246,7 +246,7 @@ var subscriptionFlow = {
 
         $("body").on("click", "#openStripe", function(){
           var email = $("#emailAddress").val().trim();
-          var tier = $("[data-tier]").data("tier");
+          var tier = $("[data-tier]").attr("data-tier");
           if (tier == "plus") {
             window.open("https://buy.stripe.com/4gwcNwdv9djD9MY004?prefilled_email=" + email, "_self");
           } else if (tier == "plus") {
