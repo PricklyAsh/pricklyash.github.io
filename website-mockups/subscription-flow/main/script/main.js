@@ -1,3 +1,13 @@
+var debug = false;
+
+if (!debug) {
+  console = {
+    log: function(){
+      
+    }
+  }
+}
+
 var swiper = new Swiper(".swiper", {
   noSwiping: true,
   allowSlideNext: false
@@ -267,7 +277,7 @@ var subscriptionFlow = {
           var prevPage = currPage -= 1;
           subscriptionFlow.backPressed = true;
 
-          if (!currPage) {
+          if (prevPage < 0) {
             window.open("/get-started-subscription/", "_self");
           } else {
             subscriptionFlow.onPageChange(prevPage);
@@ -300,7 +310,8 @@ var slideshow = {
       setInterval(()=> this.transition(), 2000)
   },
   transition: function(){
-    if (!shouldAnimate && $("[data-page]").data("page") == 2){
+    if (!shouldAnimate && $("[data-page]").attr("data-page") == 2){
+      $("[data-page]").attr("data-page", 3)
       subscriptionFlow.onPageChange(3);
       return
     }
