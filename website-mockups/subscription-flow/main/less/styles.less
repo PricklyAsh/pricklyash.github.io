@@ -253,7 +253,7 @@ body:not([data-page="0"]):not([data-page="1"])  {
             content: "";
             width: 100%;
             height: 0;
-            transition: height 1s ease-in-out;
+            transition: height 500ms ease-in-out;
             position: absolute;
             bottom:0;
             right:0;
@@ -454,6 +454,7 @@ body:not([data-page="0"]):not([data-page="1"])  {
             .selectors {
                 align-content: last baseline;
                 overflow-y: scroll;
+                scrollbar-gutter: stable;
             }
         }
         &#earn {
@@ -884,6 +885,7 @@ body:not([data-page="0"]):not([data-page="1"])  {
             padding: 0 30px;
             max-width: 1200px;
             overflow-y: scroll;
+            scrollbar-gutter: stable;
             overflow-x: hidden;
             li {
                 display: flex;
@@ -1043,8 +1045,15 @@ body:not([data-page="0"]):not([data-page="1"])  {
         }
         .scroll-area {
             overflow-y: scroll;
+            scrollbar-gutter: stable;
             display: flex;
             flex-direction: column;
+
+            &>ul {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
         }
         
         button{
