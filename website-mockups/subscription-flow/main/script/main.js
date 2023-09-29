@@ -91,6 +91,8 @@ var subscriptionFlow = {
       if (this.backPressed){
         $("#inputEmail").fadeOut();
         this.backPressed = false;
+        slideshow.shouldAnimate = true;
+        $("#info").removeClass();
         $("#gifts").fadeIn();
       } else {
         $("#gifts").fadeIn();
@@ -314,14 +316,14 @@ var slideshow = {
       $("#gifts").addClass("show");
       $(".slideshow").addClass("show");
       $(".rays").addClass("show");
-      shouldAnimate = true;
+      this.shouldAnimate = true;
       this.startTransition();
   },
   startTransition: function(){
       setInterval(()=> this.transition(), 2000)
   },
   transition: function(){
-    if (!shouldAnimate && $("[data-page]").attr("data-page") == 2){
+    if (!this.shouldAnimate && $("[data-page]").attr("data-page") == 2){
       $("[data-page]").attr("data-page", 3)
       subscriptionFlow.onPageChange(3);
       return
@@ -348,7 +350,7 @@ var slideshow = {
         $("#info").hasClass("r1") &&
         $("#info").hasClass("r2")
       ){
-        shouldAnimate = false;
+        this.shouldAnimate = false;
       }
   },
 }
