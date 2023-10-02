@@ -870,7 +870,7 @@ body:not([data-page="0"]):not([data-page="1"])  {
         }
     
         button {
-            margin: 0 auto;
+            margin: 0 auto 20px auto;
             left: 0;
             right: 0;
             // margin-left: 50%;
@@ -887,6 +887,8 @@ body:not([data-page="0"]):not([data-page="1"])  {
             overflow-y: scroll;
             scrollbar-gutter: stable;
             overflow-x: hidden;
+            height: 100%;
+            justify-content: space-evenly;
             li {
                 display: flex;
                 flex-direction: row;
@@ -1241,7 +1243,7 @@ body:not([data-page="0"]):not([data-page="1"])  {
         #letsGo {
             ul {
                 li {
-                    margin-bottom: 40px;
+                    margin-bottom: 30px;
                     &:nth-child(odd){
                         flex-direction: row-reverse;
                     }
