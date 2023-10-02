@@ -259,11 +259,11 @@ var subscriptionFlow = {
           var email = $("#emailAddress").val().trim();
           var tier = $("[data-tier]").attr("data-tier");
           if (tier == "plus") {
-            window.open("https://buy.stripe.com/4gwcNwdv9djD9MY004?prefilled_email=" + email, "_self");
-          } else if (tier == "plus") {
-            window.open("https://buy.stripe.com/9AQ00K2Qv5Rb0coeUZ?prefilled_email=" + email, "_self");
+            window.open("https://buy.stripe.com/9AQ4h08aPa7rgbm4gv?prefilled_email=" + email, "_self");
+          } else if (tier == "pro") {
+            window.open("https://buy.stripe.com/14k6p8dv9a7r6AMdR4?prefilled_email=" + email, "_self");
           } else if (tier == "drops") {
-            window.open("https://buy.stripe.com/3cs4h02Qv3J32kwaEK?prefilled_email=" + email, "_self");
+            window.open("https://buy.stripe.com/aEU7tc4YDfrL7EQeV7?prefilled_email=" + email, "_self");
           }
         });
 
