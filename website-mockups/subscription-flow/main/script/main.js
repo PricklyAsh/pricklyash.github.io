@@ -274,16 +274,23 @@ var subscriptionFlow = {
         });
 
 
-        var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
         $("body").on("input", "#emailAddress", function(){
-          var userinput = $(this).val();
+          toggleDisabled($(this));
+        });
+
+        toggleDisabled($("#emailAddress"));
+
+        function toggleDisabled($this){
+          var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
+
+          var userinput = $this.val();
           if(!pattern.test(userinput))
           {
             $("#submit").attr("disabled","true");
           } else {
             $("#submit").removeAttr("disabled");
           }
-        });
+        }
 
         $("body").on("click", "#back", function(){
           var currPage = $("[data-page]").attr("data-page");

@@ -453,7 +453,6 @@ body:not([data-page="0"]):not([data-page="1"])  {
         &#learn {
             .selectors {
                 align-content: last baseline;
-                overflow-y: scroll;
                 scrollbar-gutter: stable;
             }
         }
@@ -750,7 +749,6 @@ body:not([data-page="0"]):not([data-page="1"])  {
         }
 
         .split-quote {
-            height: 230px;
             background: linear-gradient(180deg, #3A2B99 0%, #0C0055 100%);
             display: flex;
             flex-shrink: 0;
@@ -826,6 +824,7 @@ body:not([data-page="0"]):not([data-page="1"])  {
             p {
                 font-size: 12px;
                 color: #3B00B9;
+                margin: 0;
             }
             &.ticked .box {
                 &:after {
@@ -1026,9 +1025,6 @@ body:not([data-page="0"]):not([data-page="1"])  {
             font-size: 24px;
             padding: 0 10px;
         }
-        footer {
-            font-size: 70%;
-        }
         p {
             color: black;
             text-align: center;
@@ -1117,9 +1113,6 @@ body:not([data-page="0"]):not([data-page="1"])  {
             margin-bottom: 10px;
             margin-top: 30px;
             font-size: 24px;
-        }
-        footer {
-            font-size: 70%;
         }
         p {
             text-align: center;
@@ -1230,6 +1223,7 @@ body:not([data-page="0"]):not([data-page="1"])  {
         }
         ul.selectors {
             height: calc(100% - 150px);
+            overflow-y: scroll;
             li {
                 height: 65px;
                 border: 2px solid white;
@@ -1249,10 +1243,11 @@ body:not([data-page="0"]):not([data-page="1"])  {
                     }
                 }
             }
-            .main {
-                height: calc(100% - 100px);
+            button {
+                margin: 0 auto 40px auto
             }
             .partners {
+                display: none;
                 width: 100%;
                 padding: 10px;
                 height: 100px;
@@ -1267,6 +1262,12 @@ body:not([data-page="0"]):not([data-page="1"])  {
                         width: 25%;
                     }
                 }
+            }
+        }
+
+        #learningPlan, #areYouSure {
+            footer {
+                font-size: 70%;
             }
         }
     }
@@ -1315,6 +1316,17 @@ body:not([data-page="0"]):not([data-page="1"])  {
                 padding-top: 80px;
             }
         }
+        section#gifts {
+            ul.contents {
+                li.main {
+                    transform: translate(-50%, -38%) scale(2);
+                }
+                #info {
+                    top: auto;
+                    bottom: calc(50% + -290px);
+                }
+            }
+        }
         #letsGo {
             .top {
                 padding-top: 80px;
@@ -1340,7 +1352,7 @@ body:not([data-page="0"]):not([data-page="1"])  {
                 }
             }
             button {
-                bottom: 70px;
+                bottom: 20px;
                 position: absolute;
             }
             .partners {
@@ -1365,6 +1377,9 @@ body:not([data-page="0"]):not([data-page="1"])  {
                         transform-origin: top right;
                     }
                 }
+            }
+            .continue {
+                cursor: pointer;
             }
         }
         #areYouSure {
