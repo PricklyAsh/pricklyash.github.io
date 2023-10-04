@@ -86,13 +86,13 @@ var subscriptionFlow = {
       $("#learnEarn").fadeIn();
       $("#gifts").fadeOut();
     } else if (page == 2) {
+      $("#info").removeClass();
       $("#learnEarn").fadeOut();
       this.earnSelected = false;
       if (this.backPressed){
         $("#inputEmail").fadeOut();
         this.backPressed = false;
         slideshow.shouldAnimate = true;
-        $("#info").removeClass();
         $("#gifts").fadeIn();
       } else {
         $("#gifts").fadeIn();
@@ -132,7 +132,9 @@ var subscriptionFlow = {
           $("#learningPlan").find(".plan").each(function() {
             var moreInfoEle = $(this).find(".more-info");
             var outerHeight = moreInfoEle.outerHeight();
-            moreInfoEle.attr("data-height", outerHeight);
+            if (!moreInfoEle.attr("data-height")){
+              moreInfoEle.attr("data-height", outerHeight);
+            }
 
             if ($("body").hasClass("squashed")) {
               moreInfoEle.css("height", 0);
@@ -140,11 +142,11 @@ var subscriptionFlow = {
 
           });
 
-          var duration = $("[data-earn]").data("earn");
+          var duration = $("[data-earn]").attr("data-earn");
           if (duration == "dedicated" || subscriptionFlow.selections.includes("language")){
             $("#drops").addClass("expand").addClass("recommended").addClass("selected");
             $("[data-tier]").attr("data-tier","drops")
-            $("#drops .more-info").css("height",$("#drops .more-info").data("height")+"px");
+            $("#drops .more-info").css("height",$("#drops .more-info").attr("data-height")+"px");
 
             if ($("body").hasClass("squashed")) {
               // $(".more-info").css("height","0");
@@ -153,7 +155,7 @@ var subscriptionFlow = {
           } else if (duration == "engaged"){
             $("#pro").addClass("expand").addClass("recommended").addClass("selected");
             $("[data-tier]").attr("data-tier","pro")
-            $("#pro .more-info").css("height",$("#pro .more-info").data("height")+"px");
+            $("#pro .more-info").css("height",$("#pro .more-info").attr("data-height")+"px");
 
             if ($("body").hasClass("squashed")) {
               // $(".more-info").css("height","0");
@@ -162,7 +164,7 @@ var subscriptionFlow = {
           } else if (duration == "casual"){
             $("#plus").addClass("expand").addClass("recommended").addClass("selected");
             $("[data-tier]").attr("data-tier","plus")
-            $("#plus .more-info").css("height",$("#plus .more-info").data("height")+"px");
+            $("#plus .more-info").css("height",$("#plus .more-info").attr("data-height")+"px");
             if ($("body").hasClass("squashed")) {
               // $(".more-info").css("height","0");
             }
@@ -252,7 +254,7 @@ var subscriptionFlow = {
           if ($("body").hasClass("squashed")) {
             $("#learningPlan .more-info").css("height","0");
           }
-          currentMoreInfo.css("height",currentMoreInfo.data("height")+"px");
+          currentMoreInfo.css("height",currentMoreInfo.attr("data-height")+"px");
         });
 
         $("body").on("click", "#openStripe", function(){
@@ -281,7 +283,7 @@ var subscriptionFlow = {
         toggleDisabled($("#emailAddress"));
 
         function toggleDisabled($this){
-          var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
+          var pattern = /^\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
 
           var userinput = $this.val();
           if(!pattern.test(userinput))
@@ -296,6 +298,14 @@ var subscriptionFlow = {
           var currPage = $("[data-page]").attr("data-page");
           var prevPage = currPage -= 1;
           subscriptionFlow.backPressed = true;
+
+          $(".recommended").removeClass("recommended")
+          $(".selected").removeClass("selected")
+          $(".expand").removeClass("expand")
+          if (!$("ul.selectors").hasClass("selected")) {
+            subscriptionFlow.selections = [];
+            $("[data-learn]").attr("data-learn","")
+          }
 
           if (prevPage < 0) {
             window.open("/get-started-subscription/", "_self");
