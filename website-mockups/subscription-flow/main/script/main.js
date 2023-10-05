@@ -11,13 +11,18 @@ var swiper = new Swiper(".swiper", {
   allowSlideNext: false
 });
 
+window.pbSessionStorage = {
+  learn: [],
+  earn: "",
+  email: "",
+}
+
 var swiperPB = {
   activeSlideIndex: 1,
   handleVisibilityChange: function(){
     if (document.hidden) {
       activeSlideIndex = swiper.activeIndex;
     } else {
-      console.log("ok")
       swiper.slideTo(1);
     }
   }
@@ -54,6 +59,9 @@ var subscriptionFlow = {
     element: $("#progressBar .bar"),
     update: function(value) {
       this.element.css("width", value + "%");
+    },
+    getValue: function(pageInt){
+     this.update((pageInt + 1) * (100 / subscriptionFlow.pages.length));
     }
   },
   init: function(){
@@ -62,26 +70,44 @@ var subscriptionFlow = {
     this.events.clickEvents.init();
     this.events.window.init();
 
-    var pageNumb = $("body").data("page");
+    var pageNumb = this.pages.indexOf(window.location.hash.substring(1)) || $("body").data("page");
+    this.progressBar.getValue(pageNumb);
+    if (pageNumb) {
+      $("body").data("page", pageNumb);
+      $("body").attr("data-page", pageNumb);
+    }
     $.each(this.pages, function( index, value ) {
       if (pageNumb <= 1){
         return;
       }
-      $("#" + value).hide();
+      if (value != "learn" && value != "earn") {
+        $("#" + value).hide();
+      } else {
+        $("#learnEarn").hide();
+      }
     });
     $("#"+ this.pages[pageNumb]).show();
     this.onPageChange(pageNumb);
   },
-  onBackPressed: function(page){
-
+  toggleDisabledButton: function($this){
+    var pattern = /^\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
+    var userinput = $this.val();
+    if(!pattern.test(userinput))
+    {
+      $("#submit").attr("disabled","true");
+    } else {
+      $("#submit").removeAttr("disabled");
+    }
   },
   onPageChange: function(page) {
     console.log("subflow-" + page + "-"+this.pages[page])
+    window.location.hash = this.pages[page];
+    console.log("back")
+    this.progressBar.getValue(page);
+
     if (page == 0) {
-      this.progressBar.update(15);
       swiper.slideTo(0);
     } else if (page == 1) {
-      this.progressBar.update(30);
       this.selectors.animate(this.selectors.elements.earn);
       $("#learnEarn").fadeIn();
       $("#gifts").fadeOut();
@@ -92,7 +118,7 @@ var subscriptionFlow = {
       if (this.backPressed){
         $("#inputEmail").fadeOut();
         this.backPressed = false;
-        slideshow.shouldAnimate = true;
+        // slideshow.shouldAnimate = true;
         $("#gifts").fadeIn();
       } else {
         $("#gifts").fadeIn();
@@ -100,15 +126,15 @@ var subscriptionFlow = {
       if (!swiperPB.swiperInitialised) {
         slideshow.init();
         swiperPB.swiperInitialised = true;
+      } else {
+        slideshow.shouldAnimate = true;
       }
-      
-      this.progressBar.update(45);
     } else if (page == 3) {
       $("#gifts").fadeOut();
       $("#letsGo").fadeOut();
       $("#inputEmail").fadeIn();
+      subscriptionFlow.toggleDisabledButton($("#emailAddress"));
     } else if (page == 4) {
-      this.progressBar.update(60);
       $("#inputEmail").fadeOut();
       $("#learningPlan").fadeOut();
       $("#letsGo").fadeIn(function(){
@@ -119,7 +145,6 @@ var subscriptionFlow = {
         });
       });
     } else if (page == 5){
-        this.progressBar.update(75);
         if (this.backPressed){
           $("#areYouSure").fadeOut();
           $("#learningPlan").show();
@@ -143,7 +168,8 @@ var subscriptionFlow = {
           });
 
           var duration = $("[data-earn]").attr("data-earn");
-          if (duration == "dedicated" || subscriptionFlow.selections.includes("language")){
+          
+          if (duration == "dedicated" || pbSessionStorage.learn.includes("language")){
             $("#drops").addClass("expand").addClass("recommended").addClass("selected");
             $("[data-tier]").attr("data-tier","drops")
             $("#drops .more-info").css("height",$("#drops .more-info").attr("data-height")+"px");
@@ -160,7 +186,7 @@ var subscriptionFlow = {
             if ($("body").hasClass("squashed")) {
               // $(".more-info").css("height","0");
             }
-            $("#drops").get(0).scrollIntoView();
+            $("#pro").get(0).scrollIntoView();
           } else if (duration == "casual"){
             $("#plus").addClass("expand").addClass("recommended").addClass("selected");
             $("[data-tier]").attr("data-tier","plus")
@@ -168,7 +194,7 @@ var subscriptionFlow = {
             if ($("body").hasClass("squashed")) {
               // $(".more-info").css("height","0");
             }
-            $("#drops").get(0).scrollIntoView();
+            $("#plus").get(0).scrollIntoView();
             
           }
         },300);
@@ -189,11 +215,24 @@ var subscriptionFlow = {
       slideTo: function(){
       },
       init: function(){
+        var ss = JSON.parse(sessionStorage.getItem("pbSessionStorage"));
+        if (ss){
+          pbSessionStorage = ss;
+          $("[data-learn]").attr("data-learn", pbSessionStorage.learn.join(","));
+          $("[data-earn]").attr("data-earn",pbSessionStorage.earn)
+        }
         $("body").on("click",".selectors li", function(){
           if ($(this).parent().parent().attr("id") == "learn"){
             $(this).toggleClass("selected");
-            $(this).hasClass("selected") ? subscriptionFlow.selections.push($.trim($(this).text().toLowerCase()).replace(/ /g, "_")) : subscriptionFlow.selections.pop($.trim($(this).text().toLowerCase()).replace(/ /g, "_"))
-            $("[data-learn]").attr("data-learn",subscriptionFlow.selections.join(","));
+            $(this).hasClass("selected") ? pbSessionStorage.learn.push($.trim($(this).text().toLowerCase()).replace(/ /g, "_")) : pbSessionStorage.learn.pop($.trim($(this).text().toLowerCase()).replace(/ /g, "_"));
+            
+            pbSessionStorage.learn = [];
+            for(var ele of $(this).parent().find(".selected")) {
+              pbSessionStorage.learn.push($(ele).text().toLowerCase().trim().replace(/ /g, "_"));
+            }
+
+            $("[data-learn]").attr("data-learn", pbSessionStorage.learn.join(","));
+            sessionStorage.setItem("pbSessionStorage", JSON.stringify(pbSessionStorage));
             if ($(this).parent().find(".selected").length) {
               // swiper.allowSlideNext = true;
               $(".bottom").addClass("show");
@@ -206,11 +245,12 @@ var subscriptionFlow = {
               $(this).parent().find(".selected").removeClass("selected").removeClass("animate");
               $(this).addClass("selected").addClass("animate");
               $("[data-earn]").attr("data-earn", $(this).find("span:nth-of-type(1)").text().toLowerCase());
+              pbSessionStorage.earn = $(this).find("span:nth-of-type(1)").text().toLowerCase();
+              sessionStorage.setItem("pbSessionStorage", JSON.stringify(pbSessionStorage));
               subscriptionFlow.earnSelected = true;
             }
           }
-          
-        })
+        });
         
         $("body").on("click", "[data-swiper-to]", function(){
           $(this).addClass("animate");
@@ -277,34 +317,22 @@ var subscriptionFlow = {
 
 
         $("body").on("input", "#emailAddress", function(){
-          toggleDisabled($(this));
+          subscriptionFlow.toggleDisabledButton($(this));
         });
-
-        toggleDisabled($("#emailAddress"));
-
-        function toggleDisabled($this){
-          var pattern = /^\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
-
-          var userinput = $this.val();
-          if(!pattern.test(userinput))
-          {
-            $("#submit").attr("disabled","true");
-          } else {
-            $("#submit").removeAttr("disabled");
-          }
-        }
 
         $("body").on("click", "#back", function(){
           var currPage = $("[data-page]").attr("data-page");
           var prevPage = currPage -= 1;
           subscriptionFlow.backPressed = true;
 
-          $(".recommended").removeClass("recommended")
-          $(".selected").removeClass("selected")
-          $(".expand").removeClass("expand")
-          if (!$("ul.selectors").hasClass("selected")) {
-            subscriptionFlow.selections = [];
-            $("[data-learn]").attr("data-learn","")
+          if (currPage == 4){
+            $(".recommended").removeClass("recommended")
+            $(".selected").removeClass("selected")
+            $(".expand").removeClass("expand")
+            if (!$("ul.selectors").hasClass("selected")) {
+              pbSessionStorage.learn = [];
+              $("[data-learn]").attr("data-learn","")
+            }
           }
 
           if (prevPage < 0) {
@@ -374,12 +402,9 @@ var slideshow = {
 
 subscriptionFlow.init();
 
-
-
-
-
-
-
+window.onhashchange = function() {
+  // subscriptionFlow.init();
+ }
 
 mobileChecker();
 function mobileChecker(){
@@ -394,8 +419,5 @@ function mobileChecker(){
     $("body").removeClass("mobile").addClass("desktop");
   }
 }
-
-
-
 
 document.addEventListener('visibilitychange', swiperPB.handleVisibilityChange, false);
