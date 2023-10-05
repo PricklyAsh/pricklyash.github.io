@@ -188,7 +188,6 @@ body {
             .bar {
                 height: 100%;
                 background-color: #3B00B9;
-                border-radius: 20px;
                 transition: width 1s ease-in-out;
             }
         }
@@ -395,6 +394,7 @@ body:not([data-page="0"]):not([data-page="1"])  {
             height: 100%;
             background-color: #C5FF4A;
             transition: width 1s ease-in-out, background 1s linear;
+            border-radius: 20px;
         }
     }
     
@@ -808,6 +808,10 @@ body:not([data-page="0"]):not([data-page="1"])  {
             width: 100%;
             box-sizing: border-box;
             max-width: 500px;
+            &::placeholder {
+                color: #CBD1E0;
+                opacity: 1;
+            }
         }
 
         .checkbox {
@@ -1211,6 +1215,9 @@ body:not([data-page="0"]):not([data-page="1"])  {
         }
         .slideshow {
             transform: scale(1.3);
+        }
+        .plan {
+            width: 100%;
         }
         section {
             ul.contents {
