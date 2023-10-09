@@ -144,8 +144,8 @@ var subscriptionFlow = {
         });
       });
     } else if (page == 5){
+        $("#areYouSure").fadeOut();
         if (this.backPressed){
-          $("#areYouSure").fadeOut();
           $("#learningPlan").show();
           this.backPressed = false;
           return;
