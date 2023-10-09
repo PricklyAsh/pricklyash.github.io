@@ -375,6 +375,7 @@ body:not([data-page="0"]):not([data-page="1"])  {
         position: absolute;
         z-index: 5;
         transition: background 1s ease-in-out;
+        display: none;
     }
     #progressBar {
         width: 90%;
@@ -1211,7 +1212,8 @@ body:not([data-page="0"]):not([data-page="1"])  {
         }
         #progressBar {
             width: 75%;
-            transform: translateX(calc(-50% + 16px));
+            // transform: translateX(calc(-50% + 16px));
+            transform: translateX(-50%);
         }
         .slideshow {
             transform: scale(1.3);

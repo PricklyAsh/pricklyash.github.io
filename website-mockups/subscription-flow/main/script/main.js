@@ -72,7 +72,7 @@ var subscriptionFlow = {
 
     var pageNumb = this.pages.indexOf(window.location.hash.substring(1)) || $("body").data("page");
     this.progressBar.getValue(pageNumb);
-    if (pageNumb) {
+    if (pageNumb >= 0) {
       $("body").data("page", pageNumb);
       $("body").attr("data-page", pageNumb);
     }
@@ -101,7 +101,7 @@ var subscriptionFlow = {
   },
   onPageChange: function(page) {
     console.log("subflow-" + page + "-"+this.pages[page])
-    window.location.hash = this.pages[page];
+    this.pages[page] && (window.location.hash = this.pages[page]);
     console.log("back")
     this.progressBar.getValue(page);
 
@@ -118,9 +118,8 @@ var subscriptionFlow = {
       if (this.backPressed){
         $("#inputEmail").fadeOut();
         this.backPressed = false;
-        // slideshow.shouldAnimate = true;
-        $("#gifts").fadeIn();
       } else {
+        $("#inputEmail").fadeOut();
         $("#gifts").fadeIn();
       }
       if (!swiperPB.swiperInitialised) {
@@ -403,7 +402,17 @@ var slideshow = {
 subscriptionFlow.init();
 
 window.onhashchange = function() {
-  // subscriptionFlow.init();
+  var index = subscriptionFlow.pages.indexOf(window.location.hash.substring(1)) >= 0 ? subscriptionFlow.pages.indexOf(window.location.hash.substring(1)) : 0;
+  console.log("wwww",index);
+  if (index >= 0) {
+    $("body").attr("data-page", index);
+    subscriptionFlow.onPageChange(index);
+    if (index == 1){
+      swiper.slideTo(1);
+    } else if (index == 0){
+      swiper.slideTo(0);
+    }
+  }
  }
 
 mobileChecker();
@@ -421,3 +430,5 @@ function mobileChecker(){
 }
 
 document.addEventListener('visibilitychange', swiperPB.handleVisibilityChange, false);
+
+// window.onbeforeunload = function() { return "Your work will be lost."; };
